@@ -1,0 +1,23 @@
+FROM lsstdesc/stack-sims:w_2019_19-sims_w_2019_37-v1
+MAINTAINER Heather Kelly <heather@slac.stanford.edu>
+
+ARG LSST_STACK_DIR=/opt/lsst/software/stack
+ARG LSST_USER=lsst
+ARG LSST_GROUP=lsst
+
+WORKDIR $LSST_STACK_DIR
+
+
+RUN /bin/bash -c 'source $LSST_STACK_DIR/loadLSST.bash; \
+                  setup -t sims_w_2019_37 sims_catUtils; \
+                  chmod ugo+x $SIMS_CATUTILS_DIR/support_scripts/get_kepler_light_curves.sh; \
+                  chmod ugo+x $SIMS_CATUTILS_DIR/support_scripts/get_mdwarf_flares.sh; \
+                  $SIMS_CATUTILS_DIR/support_scripts/get_kepler_light_curves.sh; \
+                  $SIMS_CATUTILS_DIR/support_scripts/get_mdwarf_flares.sh; \
+                  unset sims_catUtils; ' && \
+    cd $LSST_STACK_DIR && \
+    mkdir astropy_iers && \
+    cd astropy_iers && \
+    curl -LO https://raw.githubusercontent.com/LSSTDESC/imSim/v0.6.1/data/19-10-30-finals2000A.all 
+
+
