@@ -1,4 +1,4 @@
-FROM lsstdesc/stack-sims:w_2019_19-sims_w_2019_37-v1
+FROM lsstdesc/stack-sims:w_2019_37-sims_w_2019_37-v1
 MAINTAINER Heather Kelly <heather@slac.stanford.edu>
 
 ARG LSST_STACK_DIR=/opt/lsst/software/stack
