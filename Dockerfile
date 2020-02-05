@@ -1,4 +1,4 @@
-FROM lsstdesc/stack-sims:w_2019_37-sims_w_2019_37-v1
+FROM lsstdesc/stack-sims:w_2019_42-sims_w_2019_42-v2
 MAINTAINER Heather Kelly <heather@slac.stanford.edu>
 
 ARG LSST_STACK_DIR=/opt/lsst/software/stack
@@ -14,7 +14,8 @@ RUN /bin/bash -c 'source $LSST_STACK_DIR/loadLSST.bash; \
                   pip freeze > $LSST_STACK_DIR/require.txt; \
                   sed -i 's/astropy==3.1.2/astropy==3.2.3/g' $LSST_STACK_DIR/require.txt; \
                   pip install -c $LSST_STACK_DIR/require.txt astropy==3.2.3; \
-                  setup -t sims_w_2019_37 sims_catUtils; \
+                  pip install -c $LSST_STACK_DIR/require.txt pyarrow==0.13.0; \
+                  setup -t sims_w_2019_42 sims_catUtils; \
                   chmod ugo+x $SIMS_CATUTILS_DIR/support_scripts/get_kepler_light_curves.sh; \
                   chmod ugo+x $SIMS_CATUTILS_DIR/support_scripts/get_mdwarf_flares.sh; \
                   $SIMS_CATUTILS_DIR/support_scripts/get_kepler_light_curves.sh; \
